@@ -3,7 +3,7 @@ package fighter.fighters;
 public class SubZero extends Fighter {
 
     public SubZero() {
-        this.name = "Cаб-Зиро";
-        this.photoPath = "src/main/resources/sub-zero.jpg";
+        this.name = "Cап-Сидр";
+        this.photoPath = "src/main/resources/sasuke.png";
     }
 }

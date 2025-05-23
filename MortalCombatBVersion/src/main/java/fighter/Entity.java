@@ -12,6 +12,7 @@ public abstract class Entity {
     //Состояние (атакует, обороняется, под дебафом, ослаблен)
     private MoveStatus moveStatus;
     private int numberStep;
+    
 
     public Entity() {
         this.name = "";
@@ -98,7 +99,6 @@ public abstract class Entity {
     }
 
     public enum MoveStatus {
-
         ATTACK,
         DEFENDING,
         STUNNING, // оглушение

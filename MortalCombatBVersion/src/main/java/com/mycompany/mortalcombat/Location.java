@@ -15,34 +15,34 @@ public class Location {
     private final EnemyFactory enemyFactory = new EnemyFactory();
     private final int countEnemy;
     private final int locationNumber;
-//    private final Image locationImage;
+    private final Image locationImage;
 
-//    private static Image imageLocation1;
-//    private static Image imageLocation2;
-//    private static Image imageLocation3;
-//    private static Image imageLocation4;
-//    private static Image imageLocation5;
-//    private static Image imageLocation0;
-//
-//    static {
-//        try {
-//            imageLocation1 = ImageIO.read(Location.class.getResourceAsStream("/локация1.jpg"));
-//            imageLocation2 = ImageIO.read(Location.class.getResourceAsStream("/локация2.jpg"));
-//            imageLocation3 = ImageIO.read(Location.class.getResourceAsStream("/локация3.jpg"));
-//            imageLocation4 = ImageIO.read(Location.class.getResourceAsStream("/локация4.jpg"));
-//            imageLocation5 = ImageIO.read(Location.class.getResourceAsStream("/локация5.jpg"));
-//            imageLocation0 = ImageIO.read(Location.class.getResourceAsStream("/мифи.jpg"));
-//            
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private static Image imageLocation1;
+    private static Image imageLocation2;
+    private static Image imageLocation3;
+    private static Image imageLocation4;
+    private static Image imageLocation5;
+    private static Image imageLocation0;
+
+    static {
+        try {
+            imageLocation1 = ImageIO.read(Location.class.getResourceAsStream("/локация1.jpg"));
+            imageLocation2 = ImageIO.read(Location.class.getResourceAsStream("/локация2.jpg"));
+            imageLocation3 = ImageIO.read(Location.class.getResourceAsStream("/локация3.jpg"));
+            imageLocation4 = ImageIO.read(Location.class.getResourceAsStream("/локация4.jpg"));
+            imageLocation5 = ImageIO.read(Location.class.getResourceAsStream("/локация5.jpg"));
+            imageLocation0 = ImageIO.read(Location.class.getResourceAsStream("/мифи.jpg"));
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Location(int numberLocation) {
         this.locationNumber = numberLocation;
         this.countEnemy = generateCountEnemy(numberLocation);
         this.listEnemy = generateLocation();
-//        this.locationImage = getLocationImage(numberLocation);
+        this.locationImage = getLocationImage(numberLocation);
     }
 
     public ArrayList<Enemy> getListEnemy() {
@@ -79,20 +79,20 @@ public class Location {
         }
     }
 
-//    public static Image getLocationImage(int numberLocation) {
-//        switch (numberLocation) {
-//            case 1:
-//                return imageLocation1;
-//            case 2:
-//                return imageLocation2;
-//            case 3:
-//                return imageLocation3;
-//            case 4:
-//                return imageLocation4;
-//            case 5:
-//                return imageLocation5;
-//            default:
-//                return imageLocation0;
-//        }
-//    }
+    public static Image getLocationImage(int numberLevelLocation) {
+        switch (numberLevelLocation) {
+            case 1:
+                return imageLocation1;
+            case 2:
+                return imageLocation2;
+            case 3:
+                return imageLocation3;
+            case 4:
+                return imageLocation4;
+            case 5:
+                return imageLocation5;
+            default:
+                return imageLocation0;
+        }
+    }
 }

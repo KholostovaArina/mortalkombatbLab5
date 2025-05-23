@@ -7,6 +7,7 @@ import com.mycompany.mortalcombat.Location;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 public class FightPanel extends JPanel{
 
@@ -78,9 +79,9 @@ public class FightPanel extends JPanel{
     private final JButton b_debaff = new JButton("Дебафф");
     private final JButton b_items = new JButton("Мешок");
     private final JButton b_debug = new JButton("Режим отладки");
-
+            
     private int number_location = 1;
-    private Location location = new Location(1);
+    private Location location = new Location(number_location);
     private Enemy enemy;
 
     Dimension buttonSize = new Dimension(150, 50);
@@ -88,7 +89,10 @@ public class FightPanel extends JPanel{
     private boolean statusStep = true;
 
     JLabel scaledEnemyImage;
-    JLabel scaledPlayerImage = new JLabel(scaleImageIcon(new ImageIcon("src/main/resources/player.png"), 300, 400));
+    JLabel scaledPlayerImageOriginal = new JLabel(scaleImageIcon(new ImageIcon("src/main/resources/player.png"), 300, 400));
+    JLabel scaledPlayerImage =  scaledPlayerImageOriginal;
+    
+    private Image locatonImage = Location.getLocationImage(1);
 
 
     public FightPanel(int locationCount, String playerName) {
@@ -96,7 +100,11 @@ public class FightPanel extends JPanel{
         this.playerName = playerName;
         l_playerName = new JLabel(playerName);
         this.locationNumber = locationCount;
-        setBackground(Design.black_blue);
+        
+        //setBackground(Design.black_blue);
+        
+        setOpaque(false);
+        
         checkLocation();
 
         changeAllLabels(player, enemy);
@@ -229,14 +237,18 @@ public class FightPanel extends JPanel{
 
                 l_actionPlayer.setText("Атакует игрок");
                 player.setMoveStatus(Entity.MoveStatus.ATTACK);
-                if(player.getFlagDebaff()){
+                if (player.getFlagDebaff()) {
                     player.setFlagDebaff(false);
-                    enemy.setCurrentHp(enemy.getCurrentHp() - (int)(player.getDamage() * 1.15));
-                    System.out.println("Дебаф снят! Игрок!");
+                    enemy.setCurrentHp(enemy.getCurrentHp() - (int) (player.getDamage() * 1.15));
+                    System.out.println("Debuf snyat u Player");
                 }
                 fight.doFight(player, enemy, statusStep);
                 changeAllLabels(player, enemy);
-                if (statusStep) {statusStep = false;} else {statusStep = true;}
+                if (statusStep) {
+                    statusStep = false;
+                } else {
+                    statusStep = true;
+                }
                 enemyZeroHp();
             }
         });
@@ -244,12 +256,16 @@ public class FightPanel extends JPanel{
         b_defend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
                 player.setMoveStatus(Entity.MoveStatus.DEFENDING);
                 l_actionPlayer.setText("Игрок защищается");
                 fight.doFight(player, enemy, statusStep);
                 changeAllLabels(player, enemy);
-                if (statusStep) {statusStep = false;} else {statusStep = true;}
+                if (statusStep) {
+                    statusStep = false;
+                } else {
+                    statusStep = true;
+                }
                 enemyZeroHp();
             }
         });
@@ -260,9 +276,14 @@ public class FightPanel extends JPanel{
 
                 l_actionPlayer.setText("Игрок ослабляет противника");
                 player.setMoveStatus(Entity.MoveStatus.DEBAFF);
-                fight.doFight(player,  enemy, statusStep);
-                changeAllLabels(player,  enemy);
-                if (statusStep) {statusStep = false;} else {statusStep = true;}
+                //applyDebuffIfActive(); 
+                fight.doFight(player, enemy, statusStep);
+                changeAllLabels(player, enemy);
+                if (statusStep) {
+                    statusStep = false;
+                } else {
+                    statusStep = true;
+                }
                 enemyZeroHp();
             }
         });
@@ -270,7 +291,7 @@ public class FightPanel extends JPanel{
         b_items.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new BagFrame(player, bagOfItems);
+                new BagFrame(player, enemy, bagOfItems, FightPanel.this);
                 changeAllLabels(player, enemy);
             }
         });
@@ -299,6 +320,8 @@ public class FightPanel extends JPanel{
                 enemy.setLevel(player.getLevel());
                 new IncreasingFrame(player, FightPanel.this);
                 player.setCurrentHp(player.getMaxHp());
+                changeImageLocation(number_location);
+                changeAllLabels(player, enemy);
 
                 revalidate();
                 repaint();
@@ -361,10 +384,15 @@ public class FightPanel extends JPanel{
         return new ImageIcon(scaledImg);
     }
 
-    private void changeAllLabels(Player player, Enemy enemy) {
+    public  void changeAllLabels(Player player, Enemy enemy) {
         changePlayerInfo(player);
         changeEnemyInfo(enemy);
         }
+    
+    private void changeImageLocation(int locationID) {
+        locatonImage = Location.getLocationImage(locationID);
+        repaint();
+    }
 
     private void changePlayerInfo(Player player) {
         l_valuePoints.setText(String.valueOf(player.getPoints()));
@@ -375,7 +403,14 @@ public class FightPanel extends JPanel{
         l_playerDamage.setText("Урон: " + player.getDamage());
         l_playerLevel.setText(player.getLevel() + " уровень");
         if (statusStep) {l_turn.setText("Ваш ход");}
-        if (player.getMoveStatus() == Entity.MoveStatus.STUNNING) {l_stun.setText("Вы оглушены");} else {l_stun.setText("");}
+        if (player.getMoveStatus() == Entity.MoveStatus.STUNNING) {
+            scaledPlayerImage = new JLabel(withRedBackground(scaleImageIcon(new ImageIcon("src/main/resources/player.png"), 300, 400)));
+            l_stun.setText("Вы оглушены");
+        } else {
+            l_stun.setText("");
+            scaledPlayerImage = scaledPlayerImageOriginal;
+        }
+
         l_stun.setVisible(true);
         pr_playerHp.setMaximum(player.getMaxHp());
         pr_playerHp.setValue(player.getCurrentHp());
@@ -392,23 +427,25 @@ public class FightPanel extends JPanel{
         l_enemyName.setText(enemy.getName() + " (" + enemy.getType() + ")");
         if (!statusStep) {l_turn.setText("Ход врага");}
         if (enemy.getMoveStatus() == Entity.MoveStatus.STUNNING) {l_stun.setText("Враг оглушен");} else {l_stun.setText("");}
-
-        // Получение изображения и его масштабирование
+        
+        
         ImageIcon originalIcon = new ImageIcon(enemy.getPhotoPath());
+
         Image scaledImage = originalIcon.getImage().getScaledInstance(300, 400, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        if (enemy.getMoveStatus() == Entity.MoveStatus.STUNNING) {
+            scaledIcon = withRedBackground(scaledIcon);
+        }
 
-        // Обновление или создание нового JLabel с изображением
         if (scaledEnemyImage != null) {
-            // Обновляем изображение в существующем JLabel
             scaledEnemyImage.setIcon(scaledIcon);
         } else {
-            // Создаем новый JLabel, если он еще не существует
             scaledEnemyImage = new JLabel(scaledIcon);
             add(scaledEnemyImage);
         }
 
         pr_enemyHp.setMaximum(enemy.getMaxHp());
+
         pr_enemyHp.setValue(enemy.getCurrentHp());
 
         revalidate();
@@ -429,9 +466,9 @@ public class FightPanel extends JPanel{
 
     private void setLabelFont(Font font) {
         l_enemyHp.setFont(font);
-        l_enemyHp.setForeground(Color.WHITE);
+        l_enemyHp.setForeground(Design.purple);
         l_enemyDamage.setFont(font);
-        l_enemyDamage.setForeground(Color.WHITE);
+        l_enemyDamage.setForeground(Design.purple);
         l_points.setFont(font);
         l_points.setForeground(Color.WHITE);
         l_experience.setFont(font);
@@ -441,9 +478,9 @@ public class FightPanel extends JPanel{
         l_valueExperience.setFont(font);
         l_valuePoints.setForeground(Color.WHITE);
         l_playerHp.setFont(font);
-        l_playerHp.setForeground(Color.WHITE);
+        l_playerHp.setForeground(Design.purple);
         l_playerDamage.setFont(font);
-        l_playerDamage.setForeground(Color.WHITE);
+        l_playerDamage.setForeground(Design.purple);
         l_enemyLevel.setFont(font);
         l_enemyLevel.setForeground(Color.WHITE);
         l_enemyName.setFont(font);
@@ -451,7 +488,7 @@ public class FightPanel extends JPanel{
         l_actionPlayer.setFont(font);
         l_actionPlayer.setForeground(Color.WHITE);
         l_turn.setFont(font);
-        l_turn.setForeground(Color.WHITE);
+        l_turn.setForeground(Design.yellow);
         l_stun.setFont(font);
         l_stun.setForeground(Color.WHITE);
         l_playerLevel.setFont(font);
@@ -462,5 +499,29 @@ public class FightPanel extends JPanel{
         l_actionEnemy.setForeground(Color.WHITE);
     }
 
-    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (locatonImage != null) {
+            g.drawImage(locatonImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
+    public ImageIcon withRedBackground(ImageIcon icon) {
+        int w = icon.getIconWidth();
+        int h = icon.getIconHeight();
+        BufferedImage out = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = out.createGraphics();
+
+        // Полупрозрачный красный фон
+        g2.setColor(new Color(255, 0, 0, 128));
+        g2.fillRect(0, 0, w, h);
+
+        // Исходная картинка сверху
+        g2.drawImage(icon.getImage(), 0, 0, w, h, null);
+        g2.dispose();
+
+        return new ImageIcon(out);
+    }
+
 }

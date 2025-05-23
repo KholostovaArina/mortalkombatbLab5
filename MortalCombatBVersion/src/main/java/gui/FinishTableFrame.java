@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.List;
 
 public class FinishTableFrame extends JFrame {
-
+    
     private ExcelManager excelManager = new ExcelManager();
     private JTable table;
     private DefaultTableModel tableModel;
@@ -31,7 +31,6 @@ public class FinishTableFrame extends JFrame {
                     "Вы не попали в топ-10",
                     "Информация",
                     JOptionPane.INFORMATION_MESSAGE);
-            dispose();
         }
 
         // Создаем таблицу
@@ -59,10 +58,12 @@ public class FinishTableFrame extends JFrame {
 
         // Эффект при наведении
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 backButton.setBackground(Design.red.darker());
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 backButton.setBackground(Design.red);
             }
@@ -71,8 +72,6 @@ public class FinishTableFrame extends JFrame {
         // Обработчик кнопки
         backButton.addActionListener(e -> {
             setVisible(false);
-            dispose();
-            new LocationFrame().setVisible(true);
         });
 
         // Панель для кнопки

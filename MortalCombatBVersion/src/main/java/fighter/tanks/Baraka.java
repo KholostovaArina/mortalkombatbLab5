@@ -4,7 +4,7 @@ public class Baraka extends Tank {
 
     public Baraka() {
         this.name = "Барака";
-        this.photoPath = "src/main/resources/baraka.jpg";
+        this.photoPath = "src/main/resources/обезьяна.png";
     }
 
 }

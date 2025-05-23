@@ -11,26 +11,25 @@ public class EnemyFactory {
 
     public Enemy createEnemy(int number) {
         switch(number) {
-            case 1 :
+            case 1 -> {
                 return new Baraka();
-
-            case 2 :
+            }
+            case 2 -> {
                 return new SonyaBlade();
-
-            case 3 :
+            }
+            case 3 -> {
                 return new SubZero();
-
-            case 4 :
+            }
+            case 4 -> {
                 return new LiuKang();
-  
-            case 5 :
+            }
+            case 5 -> {
                 return new Kitana();
-
-
-            case 6 :
+            }
+            case 6 -> {
                 return new ShaoKahn();
-            default:
-                throw new IllegalArgumentException("Неизвестный тип врага");
+            }
+            default -> throw new IllegalArgumentException("Неизвестный тип врага");
         }
     }
 }

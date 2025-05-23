@@ -1,5 +1,6 @@
 package gui;
 
+import fighter.Enemy;
 import fighter.Player;
 import fighter.items.BagOfItems;
 
@@ -12,15 +13,20 @@ public class BagFrame extends JFrame {
 
     private final Player player;
     private final BagOfItems bagOfItems;
+    private final FightPanel fightPanel;
+    private final Enemy enemy;
 
     // Радиокнопки для выбора предметов
     private JRadioButton rb_SmallPotion;
     private JRadioButton rb_BigPotion;
     private JRadioButton rb_CrossOfRevival;
+    
 
-    public BagFrame(Player player, BagOfItems bagOfItems) {
+    public BagFrame(Player player, Enemy enemy,  BagOfItems bagOfItems, FightPanel fightPanel) {
         this.player = player;
+        this.enemy = enemy;
         this.bagOfItems = bagOfItems;
+        this.fightPanel = fightPanel;
 
         // Настройка окна
         setTitle("Инвентарь");
@@ -111,6 +117,7 @@ public class BagFrame extends JFrame {
                             "Ошибка",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
+                fightPanel.changeAllLabels(player, enemy);
             }
         });
 

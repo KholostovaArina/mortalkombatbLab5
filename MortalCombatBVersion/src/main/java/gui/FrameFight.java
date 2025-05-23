@@ -2,10 +2,12 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import com.mycompany.mortalcombat.Location;
 
 public class FrameFight extends JFrame {
 
     public FrameFight(int locationCount, String playerName){
+    
         FightPanel panel = new FightPanel(locationCount, playerName);
         setAllComponentsOpaqueFalse(panel);
        
@@ -15,6 +17,7 @@ public class FrameFight extends JFrame {
         setLocationRelativeTo(null);
         setSize(new Dimension(1200,800));
         setLocationRelativeTo(null);
+        
 
         getContentPane().add(panel);
         setVisible(true);

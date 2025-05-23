@@ -48,11 +48,11 @@ public class Player extends Entity {
 
     public void calculatePlayerLevel(int numberDefeatedEnemies, boolean flagDebag) {
         switch (numberDefeatedEnemies) {
-            case 2 : setLevel(1); calculateDamageHp(flagDebag); break;
-            case 4 : setLevel(2); calculateDamageHp(flagDebag); break;
-            case 7 : setLevel(3); calculateDamageHp(flagDebag); break;
-            case 9 : setLevel(4); calculateDamageHp(flagDebag); break;
-            case 12 : setLevel(5); calculateDamageHp(flagDebag); break;
+            case 2 -> { setLevel(1); calculateDamageHp(flagDebag); }
+            case 4 -> { setLevel(2); calculateDamageHp(flagDebag); }
+            case 7 -> { setLevel(3); calculateDamageHp(flagDebag); }
+            case 9 -> { setLevel(4); calculateDamageHp(flagDebag); }
+            case 12 -> { setLevel(5); calculateDamageHp(flagDebag); }
         }
     }
 
@@ -84,26 +84,26 @@ public class Player extends Entity {
         }
 
         switch (numberLocation) {
-            case 1:
+            case 1 -> {
                 setExpToNextLevel(30);
                 baseExp += enemy.getType().equals("Босс") ? (getExpToNextLevel() - baseExp) : 10;
-                break;
-            case 2:
+            }
+            case 2 -> {
                 setExpToNextLevel(70);
                 baseExp += enemy.getType().equals("Босс") ? (getExpToNextLevel() - baseExp) : 15;
-                break;
-            case 3:
+            }
+            case 3 -> {
                 setExpToNextLevel(100);
                 baseExp += enemy.getType().equals("Босс") ? (getExpToNextLevel() - baseExp) : 20;
-                break;
-            case 4:
+            }
+            case 4 -> {
                 setExpToNextLevel(150);
                 baseExp += enemy.getType().equals("Босс") ? (getExpToNextLevel() - baseExp) : 25;
-                break;
-            case 5:
+            }
+            case 5 -> {
                 setExpToNextLevel(200);
                 baseExp += enemy.getType().equals("Босс") ? (getExpToNextLevel() - baseExp) : 30;
-                break;
+            }
         }
         setValueOfExp(baseExp);
     }

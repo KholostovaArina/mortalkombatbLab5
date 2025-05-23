@@ -39,13 +39,15 @@ public abstract class Enemy extends Entity {
         int[] temp;
         int rand;
         switch (type) {
-            case "Маг":
+            case "Маг" -> {
                 temp = new int[]{1, 3};
                 return temp[new Random().nextInt(1, 100) < 50 ? 0 : 1];
-            case "Солдат":
+            }
+            case "Солдат" -> {
                 temp = new int[]{1, 2};
                 return temp[new Random().nextInt(1, 100) < 50 ? 0 : 1];
-            case "Танк":
+            }
+            case "Танк" -> {
                 rand = new Random().nextInt(0, 100);
                 if (rand <= 30) {
                     return 1;
@@ -57,7 +59,8 @@ public abstract class Enemy extends Entity {
                     System.out.println("Ошибка определения типа врага!");
                     return 0;
                 }
-            case "Боец":
+            }
+            case "Боец" -> {
                 rand = new Random().nextInt(0, 100);
                 if (rand <= 25) {
                     return 1;
@@ -69,7 +72,8 @@ public abstract class Enemy extends Entity {
                     System.out.println("Ошибка определения типа врага!");
                     return 0;
                 }
-            case "Босс" :
+            }
+            case "Босс" -> {
                 rand = new Random().nextInt(0, 100);
                 if (rand <= 33) {
                     return 1;
@@ -81,9 +85,11 @@ public abstract class Enemy extends Entity {
                     System.out.println("Ошибка определения типа врага!");
                     return 0;
                 }
-            default:
+            }
+            default -> {
                 System.out.println("Ошибка определения типа врага!");
                 return 0;
+            }
         }
     }
 

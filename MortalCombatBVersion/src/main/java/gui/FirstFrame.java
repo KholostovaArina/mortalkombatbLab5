@@ -15,42 +15,37 @@ public class FirstFrame extends JFrame {
         setResizable(false);
         getContentPane().setBackground(Design.black_blue);
 
-        // Основная панель с вертикальным расположением
         JPanel centerPanel = new JPanel();
         centerPanel.setOpaque(false);
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
-        // Заголовок
         JLabel titleLabel = new JLabel("Mortal Kombat");
         titleLabel.setFont(Design.font.deriveFont(46f));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Подзаголовок
         JLabel subtitleLabel = new JLabel("Legacy Edition");
         subtitleLabel.setFont(Design.font.deriveFont(22f));
         subtitleLabel.setForeground(Design.yellow);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Логотип
-        JLabel logoLabel = new JLabel(new ImageIcon(Design.logo));
+        Image originalImage = Design.logo; 
+        Image scaledImage = originalImage.getScaledInstance(220, 220, Image.SCALE_SMOOTH);
+
+        JLabel logoLabel = new JLabel(new ImageIcon(scaledImage));
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Панель с кнопками
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setOpaque(false);
         buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Кнопка "Начать игру"
         JButton startButton = new JButton("Начать игру");
         customizeButton(startButton, Design.green, Design.green.darker());
 
-        // Кнопка "Таблица рекордов"
         JButton tableButton = new JButton("Таблица рекордов");
         customizeButton(tableButton, Design.blue, Design.blue.darker());
 
-        // Обработчики событий
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,7 +62,6 @@ public class FirstFrame extends JFrame {
             }
         });
 
-        // Добавляем элементы на панель
         centerPanel.add(Box.createVerticalGlue());
         centerPanel.add(titleLabel);
         centerPanel.add(Box.createVerticalStrut(20));

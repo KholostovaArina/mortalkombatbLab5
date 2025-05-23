@@ -13,6 +13,9 @@ public class Design {
     public static Color purple = new Color(147,52,234);
     public static Color blue = new Color(37,99,234);
     
+    public static final Color debuffColor = new Color(138, 43, 226); // Цвет дебаффа (фиолетовый)
+    public static final Color regenColor = new Color(0, 128, 0);     // Регенерация (зелёный)
+    
     public static Font font;
     static {
         try (InputStream fontStream = Design.class.getResourceAsStream("/font.ttf")) {
@@ -28,7 +31,7 @@ public class Design {
     
     static {
         try {
-            logo = ImageIO.read(Design.class.getResourceAsStream("/Logo.gif"));
+            logo = ImageIO.read(Design.class.getResourceAsStream("/logo.png"));
           
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,6 +53,19 @@ public class Design {
         };
         backgroundPanel.setOpaque(false);
         return backgroundPanel;
+    }
+    
+    
+        public static void setFontForAllComponents(Container container) {
+        for (Component component : container.getComponents()) {
+            component.setFont(font);
+            component.setForeground( Color.WHITE);
+            
+            if (component instanceof Container) {
+                Container container1 = (Container) component;
+                setFontForAllComponents(container1);
+            }
+        }
     }
  
 }
