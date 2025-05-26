@@ -1,10 +1,12 @@
 package fighter.tanks;
 
-public class Baraka extends Tank {
+import gui.Design;
 
+
+public class Baraka extends Tank {
     public Baraka() {
         this.name = "Барака";
-        this.photoPath = "src/main/resources/обезьяна.png";
+        this.enemyImage = Design.bibizyan;
     }
 
 }

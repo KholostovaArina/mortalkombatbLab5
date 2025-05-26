@@ -1,10 +1,11 @@
 package fighter;
 
+import java.awt.Image;
 import java.util.Random;
 
 public abstract class Enemy extends Entity {
 
-    protected String photoPath;
+    protected Image enemyImage;
     protected int numberType;
     protected String type;
 
@@ -12,7 +13,7 @@ public abstract class Enemy extends Entity {
         super();
         this.currentHp = 200;
         this.level = 0;
-        this.photoPath = "";
+        this.enemyImage = null;
     }
 
     public int getNumberType() {
@@ -31,8 +32,8 @@ public abstract class Enemy extends Entity {
         this.type = type;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public Image getPhoto() {
+        return enemyImage;
     }
 
     protected int getBehaviorType(String type) {

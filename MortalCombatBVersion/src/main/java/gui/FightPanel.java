@@ -89,7 +89,7 @@ public class FightPanel extends JPanel{
     private boolean statusStep = true;
 
     JLabel scaledEnemyImage;
-    JLabel scaledPlayerImageOriginal = new JLabel(scaleImageIcon(new ImageIcon("src/main/resources/player.png"), 300, 400));
+    JLabel scaledPlayerImageOriginal = new JLabel(scaleImageIcon(new ImageIcon(Design.playerImage), 300, 400));
     JLabel scaledPlayerImage =  scaledPlayerImageOriginal;
     
     private Image locatonImage = Location.getLocationImage(1);
@@ -100,8 +100,6 @@ public class FightPanel extends JPanel{
         this.playerName = playerName;
         l_playerName = new JLabel(playerName);
         this.locationNumber = locationCount;
-        
-        //setBackground(Design.black_blue);
         
         setOpaque(false);
         
@@ -276,7 +274,6 @@ public class FightPanel extends JPanel{
 
                 l_actionPlayer.setText("Игрок ослабляет противника");
                 player.setMoveStatus(Entity.MoveStatus.DEBAFF);
-                //applyDebuffIfActive(); 
                 fight.doFight(player, enemy, statusStep);
                 changeAllLabels(player, enemy);
                 if (statusStep) {
@@ -403,11 +400,12 @@ public class FightPanel extends JPanel{
         l_playerDamage.setText("Урон: " + player.getDamage());
         l_playerLevel.setText(player.getLevel() + " уровень");
         if (statusStep) {l_turn.setText("Ваш ход");}
-        if (player.getMoveStatus() == Entity.MoveStatus.STUNNING) {
-            scaledPlayerImage = new JLabel(withRedBackground(scaleImageIcon(new ImageIcon("src/main/resources/player.png"), 300, 400)));
-            l_stun.setText("Вы оглушены");
+        if (player.getMoveStatus() == Entity.MoveStatus.STUNNING) { l_stun.setText("Вы оглушены");
+        } else {l_stun.setText("");}
+        
+        if (player.getFlagDebaff()) {
+            scaledPlayerImage = new JLabel(withRedBackground(scaleImageIcon(new ImageIcon(Design.playerImage), 300, 400)));
         } else {
-            l_stun.setText("");
             scaledPlayerImage = scaledPlayerImageOriginal;
         }
 
@@ -429,11 +427,11 @@ public class FightPanel extends JPanel{
         if (enemy.getMoveStatus() == Entity.MoveStatus.STUNNING) {l_stun.setText("Враг оглушен");} else {l_stun.setText("");}
         
         
-        ImageIcon originalIcon = new ImageIcon(enemy.getPhotoPath());
+        ImageIcon originalIcon = new ImageIcon(enemy.getPhoto());
 
         Image scaledImage = originalIcon.getImage().getScaledInstance(300, 400, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        if (enemy.getMoveStatus() == Entity.MoveStatus.STUNNING) {
+        if (enemy.getFlagDebaff()) {
             scaledIcon = withRedBackground(scaledIcon);
         }
 

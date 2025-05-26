@@ -15,16 +15,10 @@
     </properties>
     <dependencies>
         <!-- Apache POI для работы с Excel -->
-        <!-- Библиотека для воспроизведения музыки -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.20.0</version> <!-- Актуальная версия -->
-        </dependency>
-        <dependency>
-            <groupId>javazoom</groupId>
-            <artifactId>jlayer</artifactId>
-            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -36,7 +30,7 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.0</version>
         </dependency>
-       </dependencies>
+    </dependencies>
     <build>
         
         <resources>

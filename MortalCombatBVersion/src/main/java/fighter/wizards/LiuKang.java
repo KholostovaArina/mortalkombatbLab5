@@ -1,13 +1,12 @@
 package fighter.wizards;
 
-public class LiuKang extends Wizard {
+import gui.Design;
 
+
+
+public class LiuKang extends Wizard {
     public LiuKang() {
         this.name = "Лю Кенг";
-        this.photoPath = "src/main/resources/миньон.png";
+        this.enemyImage = Design.minion;
     }
-
-
-
-
 }

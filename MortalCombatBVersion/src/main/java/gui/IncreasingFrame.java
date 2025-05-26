@@ -18,26 +18,29 @@ public class IncreasingFrame extends JFrame {
         this.player = player;
         this.fightPanel = fightPanel;
 
-        // Настройка окна
         setTitle("Выбор улучшения");
-        setSize(700, 300);
+        setSize(700, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(Design.black_blue);
+        
+        JLabel happyLabel1 = new JLabel("Поздравляю,", SwingConstants.CENTER);
+        happyLabel1.setFont(Design.font.deriveFont(38f));
+        happyLabel1.setForeground(Design.yellow);
+        JLabel happyLabel2 = new JLabel("вы прошли уровень!!!", SwingConstants.CENTER);
+        happyLabel2.setFont(Design.font.deriveFont(32f));
+        happyLabel2.setForeground(Design.yellow);
 
-        // Заголовок
         JLabel titleLabel = new JLabel("Выберите, что хотите улучшить", SwingConstants.CENTER);
         titleLabel.setFont(Design.font.deriveFont(28f));
         titleLabel.setForeground(Color.WHITE);
 
-        // Кнопки
         JButton damageButton = new JButton("Увеличить урон");
         damageButton.setBackground(Design.red);
         JButton healthButton = new JButton("Увеличить здоровье");
         healthButton.setBackground(Design.blue);
 
-        // Стилизуем кнопки
         styleButton(damageButton);
         styleButton(healthButton);
 
@@ -45,7 +48,6 @@ public class IncreasingFrame extends JFrame {
         addHoverEffect(damageButton, Design.red);
         addHoverEffect(healthButton, Design.blue);
 
-        // Обработчики событий
         damageButton.addActionListener(this::increaseDamage);
         healthButton.addActionListener(this::increaseHealth);
 
@@ -62,6 +64,8 @@ public class IncreasingFrame extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(Design.black_blue);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 40, 20));
+        mainPanel.add(happyLabel1);
+        mainPanel.add(happyLabel2);
         mainPanel.add(titleLabel);
         mainPanel.add(Box.createVerticalStrut(30));
         mainPanel.add(buttonPanel);

@@ -1,10 +1,14 @@
 package fighter.soldiers;
 
+import gui.Design;
+import jdk.jfr.Description;
+
+
 public class Kitana extends Soldier {
 
     public Kitana() {
         this.name = "Китана";
-        this.photoPath = "src/main/resources/pink.png";
+        this.enemyImage = Design.pink;
     }
 
 }

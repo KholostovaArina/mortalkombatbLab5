@@ -7,9 +7,9 @@ import java.util.Random;
 public class Fight {
 
     private enum Mood { AGGRESSIVE, BALANCED, CAUTIOUS }
-    private Map<Entity.MoveStatus, Integer> moveStats = new HashMap<>();
+    private final Map<Entity.MoveStatus, Integer> moveStats = new HashMap<>();
     private Mood currentMood = Mood.BALANCED;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public void doFight(Player player, Enemy enemy, boolean turn) {
         System.out.println("=== Turn starts ===\n turn player "+ turn);
@@ -51,7 +51,7 @@ public class Fight {
         int choice = random.nextInt(100);
 
         switch (currentMood) {
-            case AGGRESSIVE:
+            case AGGRESSIVE -> {
                 if (choice < 70) {
                     System.out.println("Enemy chooses to ATTACK (Aggressive)");
                     enemyAttack(turn, player, enemy);
@@ -62,9 +62,9 @@ public class Fight {
                     System.out.println("Enemy uses DEBUFF (Aggressive)");
                     applyDebuff(player, enemy);
                 }
-                break;
+            }
 
-            case BALANCED:
+            case BALANCED -> {
                 if (choice < 40) {
                     System.out.println("Enemy chooses to ATTACK (Balanced)");
                     enemyAttack(turn, player, enemy);
@@ -75,9 +75,9 @@ public class Fight {
                     System.out.println("Enemy uses DEBUFF (Balanced)");
                     applyDebuff(player, enemy);
                 }
-                break;
+            }
 
-            case CAUTIOUS:
+            case CAUTIOUS -> {
                 if (choice < 20) {
                     System.out.println("Enemy chooses to ATTACK (Cautious)");
                     enemyAttack(turn, player, enemy);
@@ -88,7 +88,7 @@ public class Fight {
                     System.out.println("Enemy uses DEBUFF (Cautious)");
                     applyDebuff(player, enemy);
                 }
-                break;
+            }
         }
     }
 

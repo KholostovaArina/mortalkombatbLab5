@@ -15,7 +15,6 @@ public class Location {
     private final EnemyFactory enemyFactory = new EnemyFactory();
     private final int countEnemy;
     private final int locationNumber;
-    private final Image locationImage;
 
     private static Image imageLocation1;
     private static Image imageLocation2;
@@ -42,7 +41,6 @@ public class Location {
         this.locationNumber = numberLocation;
         this.countEnemy = generateCountEnemy(numberLocation);
         this.listEnemy = generateLocation();
-        this.locationImage = getLocationImage(numberLocation);
     }
 
     public ArrayList<Enemy> getListEnemy() {
@@ -66,33 +64,28 @@ public class Location {
         return temp;
     }
 
-    int generateCountEnemy(int numberLocation) {
+    public int generateCountEnemy(int numberLocation) {
         switch (numberLocation) {
-            case 1: return 2;
-            case 2: return new Random().nextInt(2, 4);
-            case 3: return new Random().nextInt(3, 5);
-            case 4: return new Random().nextInt(4, 6);
-            case 5: return new Random().nextInt(5, 7);
-            default:
+            case 1 -> {return 2;}
+            case 2 -> {return new Random().nextInt(2, 4);}
+            case 3 -> {return new Random().nextInt(3, 5);}
+            case 4 -> {return new Random().nextInt(4, 6);}
+            case 5 -> {return new Random().nextInt(5, 7); }
+            default -> {
                 System.out.println("Ошибка генерации локации!" + numberLocation);
                 return 0;
+            }
         }
     }
 
     public static Image getLocationImage(int numberLevelLocation) {
-        switch (numberLevelLocation) {
-            case 1:
-                return imageLocation1;
-            case 2:
-                return imageLocation2;
-            case 3:
-                return imageLocation3;
-            case 4:
-                return imageLocation4;
-            case 5:
-                return imageLocation5;
-            default:
-                return imageLocation0;
-        }
+        return switch (numberLevelLocation) {
+            case 1 -> imageLocation1;
+            case 2 -> imageLocation2;
+            case 3 -> imageLocation3;
+            case 4 -> imageLocation4;
+            case 5 -> imageLocation5;
+            default -> imageLocation0;
+        };
     }
 }

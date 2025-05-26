@@ -28,11 +28,24 @@ public class Design {
     
     
     public static Image logo;
+    public static Image playerImage;
+    public static Image sasuke;
+    public static Image pink;
+    public static Image bLue;
+    public static Image sonik;
+    public static Image bibizyan;
+    public static Image minion;
     
     static {
         try {
             logo = ImageIO.read(Design.class.getResourceAsStream("/logo.png"));
-          
+            playerImage = ImageIO.read(Design.class.getResourceAsStream("/player.png"));
+            sasuke = ImageIO.read(Design.class.getResourceAsStream("/sasuke.png"));
+            pink = ImageIO.read(Design.class.getResourceAsStream("/pink.png"));
+            bLue = ImageIO.read(Design.class.getResourceAsStream("/blue.png"));
+            sonik = ImageIO.read(Design.class.getResourceAsStream("/Соник.png"));
+            bibizyan = ImageIO.read(Design.class.getResourceAsStream("/обезьяна.png"));
+            minion = ImageIO.read(Design.class.getResourceAsStream("/миньон.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

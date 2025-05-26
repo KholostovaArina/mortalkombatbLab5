@@ -23,23 +23,18 @@ public class StartTableFrame extends JFrame {
         setResizable(true);
         getContentPane().setBackground(Design.black_blue);
 
-        // Чтение данных из Excel
         List<PlayerScore> scores = excelManager.readScores();
 
-        // Создаем таблицу
         initTable(scores);
 
-        // Добавляем таблицу с прокруткой
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(600, 400));
         scrollPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Заголовок
         JLabel titleLabel = new JLabel("Таблица рекордов", SwingConstants.CENTER);
         titleLabel.setFont(Design.font);
         titleLabel.setForeground(Color.WHITE);
 
-        // Кнопка "Назад"
         JButton backButton = new JButton("Назад");
         backButton.setFont(Design.font);
         backButton.setBackground(Design.red);
@@ -59,18 +54,15 @@ public class StartTableFrame extends JFrame {
             }
         });
 
-        // Обработчик кнопки
         backButton.addActionListener(e -> {
             setVisible(false);
             dispose();
         });
 
-        // Панель для кнопки
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         buttonPanel.add(backButton);
 
-        // Основная панель
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setOpaque(false);
@@ -98,7 +90,6 @@ public class StartTableFrame extends JFrame {
         header.setFont(Design.font);
         header.setBackground(Design.blue);
 
-        // Ограничиваем вывод 10 строками
         for (int i = 0; i < Math.min(scores.size(), 10); i++) {
             PlayerScore score = scores.get(i);
             tableModel.addRow(new Object[]{score.getName(), score.getPoints()});

@@ -1,9 +1,12 @@
 package fighter.fighters;
 
+import gui.Design;
+
+
 public class SubZero extends Fighter {
 
     public SubZero() {
         this.name = "Cап-Сидр";
-        this.photoPath = "src/main/resources/sasuke.png";
+       this.enemyImage = Design.sasuke;
     }
 }
